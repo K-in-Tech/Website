@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String          @id @default(cuid())
+  clerkId     String          @unique
+  name        String?
+  email       String?         @unique
+  imageUrl    String?
+  xp          Int             @default(0)
+  streak      Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  blogs       Blog[]
+  bookmarks   Bookmark[]
+  notes       Note[]
+  projects    Project[]
+  solved      SolvedProblem[]
+  submissions Submission[]
+}
+
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  excerpt   String?
+  slug      String   @unique
+  category  String   @default("tech")
+  imageUrl  String?
+  tags      String   @default("")
+  views     Int      @default(0)
+  likes     Int      @default(0)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([authorId])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  techStack   String
+  githubUrl   String?
+  liveUrl     String?
+  imageUrl    String?
+  stars       Int      @default(0)
+  views       Int      @default(0)
+  featured    Boolean  @default(false)
+  authorId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([authorId])
+}
+
+model Submission {
+  id          String           @id @default(cuid())
+  userId      String
+  problemId   String
+  problemName String
+  difficulty  Difficulty
+  language    String
+  runtime     Int?
+  memory      Int?
+  code        String
+  status      SubmissionStatus
+  xpEarned    Int              @default(0)
+  createdAt   DateTime         @default(now())
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([problemId])
+  @@index([createdAt])
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  userId      String
+  problemSlug String
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemSlug])
+}
+
+model SolvedProblem {
+  id          String     @id @default(cuid())
+  userId      String
+  problemSlug String
+  difficulty  Difficulty
+  createdAt   DateTime   @default(now())
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemSlug])
+  @@index([userId])
+}
+
+model Bookmark {
+  id          String   @id @default(cuid())
+  userId      String
+  problemSlug String
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemSlug])
+  @@index([userId])
+}
+
+enum Difficulty {
+  Easy
+  Medium
+  Hard
+}
+
+enum SubmissionStatus {
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  RUNTIME_ERROR
+  COMPILATION_ERROR
+}
