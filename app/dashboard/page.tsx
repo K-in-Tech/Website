@@ -134,11 +134,14 @@ export default function DashboardPage() {
 
         {/* ACHIEVEMENTS */}
         <Achievements
-          xp={data.xp || 0}
-          solved={data.solved?.total || 0}
-          blogs={data.stats?.blogs || 0}
-          projects={data.stats?.projects || 0}
-        />
+  xp={data.xp || 0}
+  solved={data.solved?.total || 0}
+  blogs={data.stats?.blogs || 0}
+  projects={data.stats?.projects || 0}
+  easy={data.solved?.easy || 0}
+  medium={data.solved?.medium || 0}
+  hard={data.solved?.hard || 0}
+/>
 
         {/* RECENT SOLVED */}
         <RecentSolved solved={data.recentSolved || []} />

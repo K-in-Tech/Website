@@ -26,8 +26,10 @@ export default async function RoadmapPage({
 
   if (!roadmap) return notFound();
 
-  const steps = roadmapSteps[slug] || [];
-
+  const steps =
+  roadmapSteps[
+    slug as keyof typeof roadmapSteps
+  ] || [];
   return (
     <main className="min-h-screen bg-black text-white">
 
@@ -296,7 +298,7 @@ function StatCard({
 }: {
   icon: React.ReactNode;
   label: string;
-  value: string;
+  value: string | number;
 }) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 hover:border-blue-500/30 transition">

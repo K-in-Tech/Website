@@ -360,25 +360,20 @@ outline-none
                       </p>
                     )}
 
-                    {project.skillsToLearn
-                      ?.length >
-                      0 && (
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {project.skillsToLearn.map(
-                            (
-                              skill,
-                              skillIndex
-                            ) => (
-                              <span
-                                key={`${skill}-${skillIndex}`}
-                                className="rounded-full bg-blue-500/20 px-3 py-1 text-xs"
-                              >
-                                {skill}
-                              </span>
-                            )
-                          )}
-                        </div>
-                      )}
+                    {(project.skillsToLearn?.length ?? 0) > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {project.skillsToLearn?.map(
+  (skill, skillIndex) => (
+    <span
+      key={`${skill}-${skillIndex}`}
+      className="rounded-full bg-blue-500/20 px-3 py-1 text-xs"
+    >
+      {skill}
+    </span>
+  )
+)}
+                      </div>
+                    )}
                   </div>
                 );
               }

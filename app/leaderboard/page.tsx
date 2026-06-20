@@ -158,7 +158,11 @@ export default async function LeaderboardPage() {
             users.map((user, index) => (
               <Link
                 key={user.id}
-                href={getProfileRoute(user.id, userId ?? undefined)}
+                href={getProfileRoute(
+  user.clerkId,
+  user.id,
+  userId
+)}
                 className="group grid grid-cols-12 items-center px-6 py-5 border-b border-white/5 hover:bg-white/5 transition"
               >
                 <div className="col-span-2 font-bold">

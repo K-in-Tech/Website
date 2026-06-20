@@ -19,8 +19,13 @@ type Blog = {
   };
 };
 
-const categories = [
-  
+const categories: string[] = [
+  "all",
+  "DSA",
+  "React",
+  "Next.js",
+  "AI",
+  "System Design",
 ];
 
 export default function BlogsPage() {

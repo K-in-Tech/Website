@@ -76,11 +76,10 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                    active
+                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${active
                       ? "bg-white/10 text-white"
                       : "text-gray-400 hover:bg-white/5 hover:text-white"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -95,11 +94,10 @@ export default function Navbar() {
             {isSignedIn && (
               <Link
                 href="/dashboard"
-                className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
-                  pathname.startsWith("/dashboard")
+                className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${pathname.startsWith("/dashboard")
                     ? "bg-blue-600 text-white"
                     : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white"
-                }`}
+                  }`}
               >
                 Dashboard
               </Link>
@@ -127,7 +125,6 @@ export default function Navbar() {
               </>
             ) : (
               <UserButton
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: "w-10 h-10",
@@ -161,11 +158,10 @@ export default function Navbar() {
                 onClick={() =>
                   setMobileOpen(false)
                 }
-                className={`block rounded-xl px-4 py-3 transition ${
-                  pathname === link.href
+                className={`block rounded-xl px-4 py-3 transition ${pathname === link.href
                     ? "bg-white/10 text-white"
                     : "text-gray-400 hover:bg-white/5"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -211,7 +207,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="pt-2">
-                <UserButton afterSignOutUrl="/" />
+                <UserButton />
               </div>
             )}
           </div>

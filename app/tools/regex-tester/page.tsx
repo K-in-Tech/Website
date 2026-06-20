@@ -102,7 +102,10 @@ test@example.org`
       pattern
     );
   };
-
+ const matches: string[] =
+  result.valid && result.matches
+    ? result.matches
+    : [];
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12">
 
@@ -239,31 +242,22 @@ test@example.org`
                 {result.highlighted}
               </div>
 
-              {result.matches.length > 0 && (
+              {matches.length > 0 && (
                 <div className="mt-6">
-
                   <h3 className="font-semibold mb-3">
                     Matched Values
                   </h3>
 
                   <div className="flex flex-wrap gap-2">
-
-                    {result.matches.map(
-                      (
-                        match,
-                        index
-                      ) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300"
-                        >
-                          {match}
-                        </span>
-                      )
-                    )}
-
+                    {matches.map((match, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300"
+                      >
+                        {match}
+                      </span>
+                    ))}
                   </div>
-
                 </div>
               )}
             </>
